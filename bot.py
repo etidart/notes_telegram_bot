@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import TOKEN
-from handlers import common
+from handlers import common, create_note, delete_note, find_note
 
 
 async def main():
@@ -18,6 +18,9 @@ async def main():
     bot = Bot(TOKEN)
 
     dp.include_router(common.router)
+    dp.include_router(create_note.router)
+    dp.include_router(delete_note.router)
+    dp.include_router(find_note.router)
 
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 
