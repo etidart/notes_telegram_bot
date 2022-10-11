@@ -11,6 +11,6 @@ def add_note_db(user_id, title, content):
     date = "{}.{}.{}".format(now.day, now.month, now.year)
     jarray = json.dumps(content)
 
-    cur.execute("INSERT INTO notes VALUES (?, ?, ?, ?)", (int(user_id), str(title), str(jarray), str(date)))
+    cur.execute("INSERT INTO notes (user_id, title, content, date) VALUES (?, ?, ?, ?)", (int(user_id), str(title), str(jarray), str(date)))
     con.commit()
 
