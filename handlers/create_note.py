@@ -6,7 +6,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message, ReplyKeyboardRemove
 
 from utils.db.db import add_note_db
-from keyboards import end_kb, cancel_kb
+from keyboards import row_generator
 
 router = Router()
 
@@ -18,14 +18,14 @@ class Note(StatesGroup):
 
 @router.callback_query(Text(text="create_note"))
 async def create_note(callback: types.CallbackQuery, state: FSMContext):
-    await callback.message.answer("Введите название", reply_markup=cancel_kb.keyboard)
+    await callback.message.answer("Введите название", reply_markup=row_generator.make_row_keyboard(["отмена"]))
     await callback.answer()
     await state.set_state(Note.title)
 
 @router.message(Note.title)
 async def title_chosen(message: Message, state: FSMContext):
     await state.update_data(title=message.text)
-    await message.answer("Хорошо. Теперь содержание\nКогда закончите напишите 'закончить' или /end", reply_markup=end_kb.keyboard)
+    await message.answer("Хорошо. Теперь содержание\nКогда закончите напишите 'закончить' или /end", reply_markup=row_generator.make_row_keyboard(["закончить", "отмена"]))
     await state.set_state(Note.content)
 
 @router.message(Note.content, Command(commands=["end"]))
