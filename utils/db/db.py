@@ -22,3 +22,7 @@ def get_note_content(id) -> any:
     cur.execute("SELECT content FROM notes WHERE rowid = ?", (int(id), ))
     data = cur.fetchone()
     return json.loads(data[0])
+
+def delete_note_db(id) -> any:
+    cur.execute("DELETE FROM notes WHERE rowid = ?", (int(id), ))
+    con.commit()
