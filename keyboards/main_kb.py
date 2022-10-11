@@ -6,4 +6,4 @@ find_btn = InlineKeyboardButton(text="Найти заметку", callback_data=
 delete_btn = InlineKeyboardButton(text="Удалить заметку", callback_data="delete_note")
 
 # keyboard
-keyboard = InlineKeyboardMarkup(inline_keyboard=[[create_btn, find_btn, delete_btn]])
+keyboard = InlineKeyboardMarkup(inline_keyboard=[[create_btn], [find_btn], [delete_btn]])
